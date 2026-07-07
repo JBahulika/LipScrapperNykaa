@@ -11,7 +11,7 @@ from io_utils import save_raw_response
 from models import Product, product_from_listing
 from nykaa_session import NykaaSession
 
-logger = logging.getLogger("nykaa_scraper")
+logger = logging.getLogger("nykaa_scraper system")
 
 
 async def discover_products(session: NykaaSession) -> tuple[list[Product], dict[str, Any]]:

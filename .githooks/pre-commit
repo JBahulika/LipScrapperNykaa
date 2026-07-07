@@ -1,0 +1,15 @@
+#!/bin/sh
+# Pre-commit guard: block runtime/generated files from being committed.
+# Installed from .githooks/pre-commit
+
+blocked='\.venv/|__pycache__/|^output/[^/]+\.(csv|json)$|^logs/[^/]+\.(log|txt)$|^data/raw_api_responses/[^/]+\.json$|\.DS_Store$|^\.env$'
+
+staged=$(git diff --cached --name-only)
+if [ -n "$staged" ] && echo "$staged" | grep -E "$blocked" >/dev/null 2>&1; then
+  echo "pre-commit: blocked — staged files match ignored runtime/generated paths."
+  echo "$staged" | grep -E "$blocked"
+  echo "Remove them with: git reset HEAD <file>"
+  exit 1
+fi
+
+exit 0
